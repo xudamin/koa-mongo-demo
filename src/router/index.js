@@ -8,7 +8,16 @@ import Login from '@/view/Login'
 Vue.use(Router)
 
 const router = new Router({
+  mode: 'history',
   routes: [{
+      path: '/',
+      name: 'home',
+      component: HelloWorld,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
       path: '/hello',
       name: 'helloWorld',
       component: HelloWorld
@@ -26,10 +35,8 @@ const router = new Router({
   ]
 })
 router.beforeEach((to, from, next) => {
-  console.log(to, from, next)
   let token = store.state.token
   if (to.meta.requiresAuth) {
-    console.log(token)
     if (token) {
       next()
     } else {

@@ -25,8 +25,19 @@ export default {
   },
   methods: {
     handleSubmit() {
-      console.log(this.form)
-      this.$router.push('hello')
+      axios.userLogin(this.form).then(({ data }) => {
+        if (data.info === false) {
+          alert('账号不存在')
+        }
+        if (data.success) {
+          alert('登陆成功')
+          let token = data.token
+          let username = data.username
+          this.$store.dispatch('UserLogin', token)
+          this.$store.dispatch('UserName', username)
+          this.$router.push('hello')
+        }
+      })
     },
     handleRegister() {
       this.$router.push('register')

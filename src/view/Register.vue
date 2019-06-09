@@ -7,6 +7,7 @@
   </div>
 </template>
 <script>
+import axios from '../axios.js'
 export default {
   name: 'Register',
   data() {
@@ -25,7 +26,13 @@ export default {
   },
   methods: {
     handleSubmit() {
-      console.log(this.form)
+      axios.userRegister(this.form).then(({ }) => {
+        if (data.success) {
+          alert('注册成功')
+        } else {
+          alert('用户名已存在')
+        }
+      })
     }
   }
 }
