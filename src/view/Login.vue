@@ -7,9 +7,10 @@
   </div>
 </template>
 <script>
+import axios from '../axios.js'
 export default {
   name: 'Login',
-  data() {
+  data () {
     return {
       form: {
         username: '',
@@ -17,14 +18,14 @@ export default {
       }
     }
   },
-  created() {
+  created () {
 
   },
-  mounted() {
+  mounted () {
 
   },
   methods: {
-    handleSubmit() {
+    handleSubmit () {
       axios.userLogin(this.form).then(({ data }) => {
         if (data.info === false) {
           alert('账号不存在')
@@ -39,10 +40,9 @@ export default {
         }
       })
     },
-    handleRegister() {
+    handleRegister () {
       this.$router.push('register')
     }
   }
 }
 </script>
-

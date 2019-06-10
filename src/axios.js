@@ -12,7 +12,7 @@ let instance = axios.create({
 instance.interceptors.request.use(
   config => {
     if (store.state.token) {
-      config.headers.Authorization = `token ${token.state.token}`
+      config.headers.Authorization = `token ${store.state.token}`
     }
     return config
   }
@@ -22,11 +22,11 @@ instance.interceptors.response.use(
   response => {
     return response
   },
-  error => { //默认除了2XX之外的都是错误的，就会走这里
+  error => { // 默认除了2XX之外的都是错误的，就会走这里
     if (error.response) {
       switch (error.response.status) {
         case 401:
-          router.replace({ //跳转到登录页面
+          router.replace({ // 跳转到登录页面
             path: 'login',
             query: {
               redirect: router.currentRoute.fullPath
@@ -39,20 +39,20 @@ instance.interceptors.response.use(
 )
 
 export default {
-  //用户注册
-  userRegister(data) {
-    return instance.post('/api/register', data);
+  // 用户注册
+  userRegister (data) {
+    return instance.post('/api/register', data)
   },
-  //用户登录
-  userLogin(data) {
-    return instance.post('/api/login', data);
+  // 用户登录
+  userLogin (data) {
+    return instance.post('/api/login', data)
   },
-  //获取用户
-  getUser() {
-    return instance.get('/api/user');
+  // 获取用户
+  getUser () {
+    return instance.get('/api/user')
   },
-  //删除用户
-  delUser(data) {
-    return instance.post('/api/delUser', data);
+  // 删除用户
+  delUser (data) {
+    return instance.post('/api/delUser', data)
   }
 }

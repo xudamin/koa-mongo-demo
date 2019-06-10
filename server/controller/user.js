@@ -1,37 +1,35 @@
 const User = require('../db.js').User
 
 const moment = require('moment')
-const objectIdToTimeStamp = require('objectid-to-timestamp')
+const objectIdToTimestamp = require('objectid-to-timestamp')
 
 const sha1 = require('sha1')
 const createToken = require('../token/createToken.js')
 
 // 根据用户名查找
-const findUser = (username) => {
+const _findUser = (username) => {
   return new Promise((resolve, reject) => {
-    User.findOne({
-      username
-    }, (err, doc) => {
+    User.findOne({ username }, (err, docs) => {
       if (err) {
         reject(err)
       }
-      resolve(doc)
+      resolve(docs)
     })
   })
 }
 // 找到所有用户
-const findAllUsers = () => {
+const _findAllUsers = () => {
   return new Promise((resolve, reject) => {
-    User.find({}, (err, doc) => {
+    User.find({}, (err, docs) => {
       if (err) {
         reject(err)
       }
-      resolve(doc)
+      resolve(docs)
     })
   })
 }
 // 删除某个用户
-const delUser = (id) => {
+const _delUser = (id) => {
   return new Promise((resolve, reject) => {
     User.findOneAndRemove({
       _id: id
@@ -48,20 +46,20 @@ const delUser = (id) => {
 const login = async (ctx) => {
   let username = ctx.request.body.username
   let password = sha1(ctx.requesr.body.password)
-  let doc = await fincUser(username)
-  if (!doc) {
+  let docs = await _findUser(username)
+  if (!docs) {
     console.log('用户名填写错误')
     ctx.status = 200
     ctx.body = {
       info: false
     }
-  } else if (doc.password === password) {
+  } else if (docs.password === password) {
     console.log('登陆成功')
     let token = createToken(username)
     console.log(token)
-    doc.token = token
+    docs.token = token
     await new Promise((resolve, reject) => {
-      doc.save((err) => {
+      docs.save((err) => {
         if (err) {
           reject(err)
         }
@@ -73,7 +71,7 @@ const login = async (ctx) => {
       success: true,
       username,
       token,
-      create_time: doc.create_time
+      create_time: docs.create_time
     }
   } else {
     console.log('密码填写错误！')
@@ -85,16 +83,16 @@ const login = async (ctx) => {
 }
 // 注册
 const reg = async (ctx) => {
+  console.log('~~~~~')
   let user = new User({
     username: ctx.request.body.username,
     password: sha1(ctx.request.body.password),
-    token: createToken(this.username),
-    create_time: moment(objectIdToTimestamp(user._id)).format('YYYY-MM-DD HH:mm:ss')
+    token: createToken(this.username)
   })
   user.create_time = moment(objectIdToTimestamp(user._id)).format('YYYY-MM-DD HH:mm:ss')
 
-  let doc = await findUser(user.username)
-  if (doc) {
+  let docs = await _findUser(user.username)
+  if (docs) {
     console.log('用户名已存在')
     ctx.status = 200
     ctx.body = {
@@ -118,17 +116,17 @@ const reg = async (ctx) => {
 }
 // 获取所有的用户信息
 const getAllUsers = async (ctx) => {
-  let doc = await findAllUsers()
+  let docs = await _findAllUsers()
   ctx.status = 200
   ctx.body = {
     success: true,
-    result: doc
+    result: docs
   }
 }
 // 删除用户
 const delUser = async (ctx) => {
   let id = ctx.request.body.id
-  await delUser(id)
+  await _delUser(id)
   ctx.status = 200
   ctx.body = {
     success: true

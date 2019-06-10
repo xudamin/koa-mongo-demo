@@ -23,17 +23,17 @@ const mutations = {
 }
 
 const actions = {
-  UserLogin({
+  UserLogin ({
     commit
   }, data) {
     commit('LOGIN', data)
   },
-  UserLogout({
+  UserLogout ({
     commit
   }) {
     commit('LOGOUT')
   },
-  UserName({
+  UserName ({
     commit
   }, data) {
     commit('USERNAME', data)

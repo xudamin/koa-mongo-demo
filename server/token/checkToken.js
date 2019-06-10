@@ -8,6 +8,7 @@ module.exports = async (ctx, next) => {
   let tokenContent = null
   try {
     tokenContent = await jwt.verify(token, 'yuxiaomin')
+    console.log(tokenContent)
   } catch (err) {
     ctx.throw(401, 'invalid token')
   }

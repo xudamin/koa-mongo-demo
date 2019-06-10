@@ -10,7 +10,7 @@
 import axios from '../axios.js'
 export default {
   name: 'Register',
-  data() {
+  data () {
     return {
       form: {
         username: '',
@@ -18,15 +18,15 @@ export default {
       }
     }
   },
-  created() {
+  created () {
 
   },
-  mounted() {
+  mounted () {
 
   },
   methods: {
-    handleSubmit() {
-      axios.userRegister(this.form).then(({ }) => {
+    handleSubmit () {
+      axios.userRegister(this.form).then(({data}) => {
         if (data.success) {
           alert('注册成功')
         } else {
@@ -37,4 +37,3 @@ export default {
   }
 }
 </script>
-

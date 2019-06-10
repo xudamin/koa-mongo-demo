@@ -4,10 +4,10 @@ mongoose.connect('mongodb://localhost/vue-login')
 let db = mongoose.connection
 mongoose.Promise = global.Promise
 
-db.on('error', function() {
+db.on('error', function () {
   console.log('数据库连接失败！')
 })
-db.on('open', function() {
+db.once('open', function () {
   console.log('数据库连接成功')
 })
 

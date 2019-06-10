@@ -7,6 +7,8 @@
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
+    "db": "D:/MongoDB/Server/4.0/bin/mongod --dbpath E:/personal/koa-mongo-demo/data",
+    "server": "node server.js",
     "unit": "jest --config test/unit/jest.conf.js --coverage",
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e",
@@ -19,7 +21,10 @@
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",
     "koa-router": "^7.4.0",
+    "moment": "^2.24.0",
     "mongoose": "^5.5.14",
+    "objectid-to-timestamp": "^1.3.0",
+    "sha1": "^1.1.1",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
     "vuex": "^3.1.1"
