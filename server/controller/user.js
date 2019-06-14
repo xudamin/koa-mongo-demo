@@ -83,7 +83,6 @@ const login = async (ctx) => {
 }
 // 注册
 const reg = async (ctx) => {
-  console.log('~~~~~')
   let user = new User({
     username: ctx.request.body.username,
     password: sha1(ctx.request.body.password),

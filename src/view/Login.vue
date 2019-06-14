@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1>登录</h1>
     <input type="text" v-model="form.username">
     <input type="password" v-model="form.password">
     <button @click="handleRegister">注册</button>
@@ -27,7 +28,7 @@ export default {
   methods: {
     handleSubmit () {
       axios.userLogin(this.form).then(({ data }) => {
-        if (data.info === false) {
+        if (data.success === false) {
           alert('账号不存在')
         }
         if (data.success) {
@@ -37,6 +38,8 @@ export default {
           this.$store.dispatch('UserLogin', token)
           this.$store.dispatch('UserName', username)
           this.$router.push('hello')
+        } else {
+          alert('密码错误')
         }
       })
     },
