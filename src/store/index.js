@@ -10,7 +10,7 @@ const state = {
 const mutations = {
   LOGIN: (state, data) => {
     state.token = data
-    window.sessionStorage.setItem('token')
+    window.sessionStorage.setItem('token', state.token)
   },
   LOGOUT: (state) => {
     state.token = null
@@ -18,7 +18,7 @@ const mutations = {
   },
   USERNAME: (state, data) => {
     state.username = data
-    window.sessionStorage.setItem('username')
+    window.sessionStorage.setItem('username', state.username)
   }
 }
 

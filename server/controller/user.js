@@ -45,7 +45,7 @@ const _delUser = (id) => {
 // 登陆
 const login = async (ctx) => {
   let username = ctx.request.body.username
-  let password = sha1(ctx.requesr.body.password)
+  let password = sha1(ctx.request.body.password)
   let docs = await _findUser(username)
   if (!docs) {
     console.log('用户名填写错误')
